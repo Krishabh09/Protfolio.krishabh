@@ -8,6 +8,39 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { FiBookOpen, FiCalendar, FiMapPin } from 'react-icons/fi';
 
+const educationData = [
+  {
+    degree: 'Bachelor of Technology',
+    field: 'Computer Science and Engineering',
+    institution: 'Lovely Professional University',
+    duration: '2023 – Present',
+    scoreType: 'CGPA',
+    score: '6.04',
+    maxScore: '10.0',
+    percentage: 60.4
+  },
+  {
+    degree: 'Intermediate (12th)',
+    field: 'Science',
+    institution: 'Gyan Bharti Senior Secondary School',
+    duration: '2021 – 2023',
+    scoreType: 'Percentage',
+    score: '66%',
+    maxScore: '100%',
+    percentage: 66
+  },
+  {
+    degree: 'Matriculation (10th)',
+    field: 'General Subjects',
+    institution: 'Magadh international School',
+    duration: '2020 – 2021',
+    scoreType: 'Percentage',
+    score: '75%',
+    maxScore: '100%',
+    percentage: 75
+  }
+];
+
 const Education = () => {
   return (
     <section id="education" className="relative py-20 lg:py-28">
@@ -26,88 +59,92 @@ const Education = () => {
           <div className="section-title-underline" />
         </motion.div>
 
-        {/* Education Card */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="max-w-2xl mx-auto"
-        >
-          <motion.div
-            whileHover={{ y: -6 }}
-            className="glass-card overflow-hidden"
-          >
-            {/* Top gradient bar */}
-            <div className="h-1.5 bg-gradient-to-r from-accent-blue via-accent-purple to-accent-cyan" />
+        {/* Education Cards Map */}
+        <div className="max-w-3xl mx-auto space-y-8">
+          {educationData.map((edu, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: index * 0.15 }}
+            >
+              <motion.div
+                whileHover={{ y: -6 }}
+                className="glass-card overflow-hidden"
+              >
+                {/* Top gradient bar */}
+                <div className="h-1.5 bg-gradient-to-r from-accent-blue via-accent-purple to-accent-cyan" />
 
-            <div className="p-8">
-              {/* Degree icon & title */}
-              <div className="flex items-start gap-5 mb-6">
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-accent-blue to-accent-purple flex items-center justify-center shrink-0">
-                  <FiBookOpen className="text-white" size={26} />
-                </div>
-                <div>
-                  <h3 className="text-xl sm:text-2xl font-bold text-text-primary">
-                    Bachelor of Technology
-                  </h3>
-                  <p className="text-accent-blue font-medium mt-1">
-                    Computer Science and Engineering
-                  </p>
-                </div>
-              </div>
+                <div className="p-6 sm:p-8">
+                  {/* Degree icon & title */}
+                  <div className="flex items-start gap-4 sm:gap-5 mb-6">
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-accent-blue to-accent-purple flex items-center justify-center shrink-0">
+                      <FiBookOpen className="text-white" size={24} />
+                    </div>
+                    <div>
+                      <h3 className="text-lg sm:text-2xl font-bold text-text-primary leading-tight">
+                        {edu.degree}
+                      </h3>
+                      <p className="text-accent-blue font-medium mt-1 text-sm sm:text-base">
+                        {edu.field}
+                      </p>
+                    </div>
+                  </div>
 
-              {/* Details grid */}
-              <div className="grid sm:grid-cols-3 gap-4 mb-6">
-                {/* University */}
-                <div className="flex items-center gap-3 text-text-secondary">
-                  <FiMapPin className="text-accent-purple shrink-0" size={18} />
-                  <div>
-                    <p className="text-xs text-text-muted">University</p>
-                    <p className="text-sm font-medium">Lovely Professional University</p>
+                  {/* Details grid */}
+                  <div className="grid sm:grid-cols-3 gap-5 mb-6">
+                    {/* Institution */}
+                    <div className="flex flex-col gap-1 text-text-secondary">
+                      <div className="flex items-center gap-2">
+                        <FiMapPin className="text-accent-purple shrink-0" size={16} />
+                        <p className="text-xs text-text-muted uppercase tracking-wider">Institution</p>
+                      </div>
+                      <p className="text-sm font-medium pl-6 text-text-primary">{edu.institution}</p>
+                    </div>
+
+                    {/* Duration */}
+                    <div className="flex flex-col gap-1 text-text-secondary">
+                      <div className="flex items-center gap-2">
+                        <FiCalendar className="text-accent-cyan shrink-0" size={16} />
+                        <p className="text-xs text-text-muted uppercase tracking-wider">Duration</p>
+                      </div>
+                      <p className="text-sm font-medium pl-6 text-text-primary">{edu.duration}</p>
+                    </div>
+
+                    {/* Score */}
+                    <div className="flex flex-col gap-1 text-text-secondary">
+                      <div className="flex items-center gap-2">
+                        <div className="w-4 h-4 rounded-full bg-gradient-to-br from-accent-blue to-accent-purple flex items-center justify-center shrink-0">
+                          <span className="text-[10px] text-white font-bold tracking-tighter" style={{ lineHeight: 1 }}>{edu.scoreType === 'CGPA' ? 'C' : '%'}</span>
+                        </div>
+                        <p className="text-xs text-text-muted uppercase tracking-wider">{edu.scoreType}</p>
+                      </div>
+                      <p className="text-sm font-medium pl-6 text-text-primary">{edu.score}</p>
+                    </div>
+                  </div>
+
+                  {/* Progress bar */}
+                  <div className="mt-2">
+                    <div className="flex justify-between text-xs text-text-muted mb-2 font-medium">
+                      <span>Academic Progress</span>
+                      <span>{edu.score} / {edu.maxScore}</span>
+                    </div>
+                    <div className="w-full h-2 bg-dark-700/50 rounded-full overflow-hidden border border-dark-600">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        whileInView={{ width: `${edu.percentage}%` }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 1.2, delay: 0.3 + (index * 0.1), ease: 'easeOut' }}
+                        className="h-full bg-gradient-to-r from-accent-blue to-accent-purple rounded-full"
+                      />
+                    </div>
                   </div>
                 </div>
-
-                {/* Duration */}
-                <div className="flex items-center gap-3 text-text-secondary">
-                  <FiCalendar className="text-accent-cyan shrink-0" size={18} />
-                  <div>
-                    <p className="text-xs text-text-muted">Duration</p>
-                    <p className="text-sm font-medium">2023 – Present</p>
-                  </div>
-                </div>
-
-                {/* CGPA */}
-                <div className="flex items-center gap-3 text-text-secondary">
-                  <div className="w-5 h-5 rounded-full bg-gradient-to-br from-accent-blue to-accent-purple flex items-center justify-center shrink-0">
-                    <span className="text-[10px] text-white font-bold">A</span>
-                  </div>
-                  <div>
-                    <p className="text-xs text-text-muted">CGPA</p>
-                    <p className="text-sm font-medium">6.04</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* CGPA progress bar */}
-              <div className="mt-4">
-                <div className="flex justify-between text-xs text-text-muted mb-2">
-                  <span>Academic Progress</span>
-                  <span>6.04 / 10.0</span>
-                </div>
-                <div className="w-full h-2 bg-dark-600 rounded-full overflow-hidden">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    whileInView={{ width: '60.4%' }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 1.2, delay: 0.3, ease: 'easeOut' }}
-                    className="h-full bg-gradient-to-r from-accent-blue to-accent-purple rounded-full"
-                  />
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </motion.div>
+              </motion.div>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );
